@@ -1,5 +1,6 @@
 package com.fastmarket.fastmarket.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,6 +21,7 @@ public class Acesso implements GrantedAuthority {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_acesso")
     private Long id;
 
+    @Column(nullable = false)
     private String descricao; /* Acesso ex: ROLE_ADMIN ou ROLE_SECRETARIO */
 
     @Override
