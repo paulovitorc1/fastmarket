@@ -1,6 +1,8 @@
 package com.fastmarket.fastmarket.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,7 +10,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -23,6 +28,9 @@ public abstract class Pessoa implements Serializable {
     private String nome;
     private String email;
     private String telefone;
+
+    @OneToMany(mappedBy = "pessoa", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Endereco> enderecos = new ArrayList<Endereco>();
 
     public Long getId() {
         return id;
@@ -54,6 +62,14 @@ public abstract class Pessoa implements Serializable {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    public List<Endereco> getEnderecos() {
+        return enderecos;
+    }
+
+    public void setEnderecos(List<Endereco> enderecos) {
+        this.enderecos = enderecos;
     }
 
     @Override

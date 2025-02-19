@@ -24,7 +24,7 @@ public class Endereco implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_endereco")
     private Long id;
 
-    private String ruaLodra;
+    private String ruaLogra;
     private String cep;
     private String numero;
     private String complemento;
@@ -45,11 +45,11 @@ public class Endereco implements Serializable {
     }
 
     public String getRuaLodra() {
-        return ruaLodra;
+        return ruaLogra;
     }
 
-    public void setRuaLodra(String ruaLodra) {
-        this.ruaLodra = ruaLodra;
+    public void setRuaLodra(String ruaLogra) {
+        this.ruaLogra = ruaLogra;
     }
 
     public String getCep() {
