@@ -1,11 +1,16 @@
 package com.fastmarket.fastmarket.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -24,7 +29,8 @@ public class StatusRastreio implements Serializable {
     private String estado;
     private String status;
 
-    /* Implementar relacionamento VdCpLojaVirt */
+    @OneToMany(mappedBy = "status_rastreio", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<VdCpLojaVirt> vd_cp_loja_virt = new ArrayList<VdCpLojaVirt>();
 
     public Long getId() {
         return id;

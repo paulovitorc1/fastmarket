@@ -32,6 +32,9 @@ public abstract class Pessoa implements Serializable {
     @OneToMany(mappedBy = "pessoa", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Endereco> enderecos = new ArrayList<Endereco>();
 
+    @OneToMany(mappedBy = "pessoa", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<VdCpLojaVirt> vd_cp_loja_virt = new ArrayList<VdCpLojaVirt>();
+
     public Long getId() {
         return id;
     }
@@ -70,6 +73,14 @@ public abstract class Pessoa implements Serializable {
 
     public void setEnderecos(List<Endereco> enderecos) {
         this.enderecos = enderecos;
+    }
+
+    public List<VdCpLojaVirt> getVd_cp_loja_virt() {
+        return vd_cp_loja_virt;
+    }
+
+    public void setVd_cp_loja_virt(List<VdCpLojaVirt> vd_cp_loja_virt) {
+        this.vd_cp_loja_virt = vd_cp_loja_virt;
     }
 
     @Override
