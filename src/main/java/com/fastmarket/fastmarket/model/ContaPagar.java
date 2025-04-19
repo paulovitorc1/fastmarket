@@ -55,6 +55,8 @@ public class ContaPagar implements Serializable {
     @Enumerated(EnumType.STRING)
     private StatusContaPagar statusContaPagar;
 
+    // Falta: Relacionamento FormaPagamento
+
     public Long getId() {
         return id;
     }
