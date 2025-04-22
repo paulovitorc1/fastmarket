@@ -1,5 +1,10 @@
 package com.fastmarket.fastmarket.services;
 
+import java.util.List;
+import java.util.Optional;
+
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,9 +29,39 @@ public class AcessoService {
      * return acesso;
      * }
      */
+    public List<Acesso> listarAcessos() {
+        return acessoRepository.findAll();
+    }
 
     public Acesso criarAcesso(Acesso acesso) {
         return acessoRepository.save(acesso);
+    }
+
+    public Optional<Acesso> listarAcessoPorId(Long id) {
+        Optional<Acesso> acessoPorId = acessoRepository.findById(id);
+        return acessoPorId;
+    }
+
+    public String deletarAcesso(Long id) {
+        if (!acessoRepository.existsById(id)) {
+            throw new EntityNotFoundException("Acesso com ID " + id + " não encontrado.");
+        }
+        acessoRepository.deleteById(id);
+        return "Acesso com ID " + id + " deletado com sucesso.";
+
+    }
+
+
+    /* Ajustar acesso */
+    public Acesso editarAcesso(Acesso acesso, Long id) {
+
+        Acesso acessoAEditar = acessoRepository.findById(id).orElse(null);
+
+        acessoAEditar.setDescricao(acesso.getDescricao());
+
+        acessoRepository.save(acessoAEditar);
+
+        return acessoAEditar;
 
     }
 
