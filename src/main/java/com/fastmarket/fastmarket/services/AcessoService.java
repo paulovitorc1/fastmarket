@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.fastmarket.fastmarket.model.Acesso;
@@ -30,7 +31,7 @@ public class AcessoService {
      * }
      */
     public List<Acesso> listarAcessos() {
-        return acessoRepository.findAll();
+        return acessoRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
     }
 
     public Acesso criarAcesso(Acesso acesso) {
