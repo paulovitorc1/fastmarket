@@ -18,18 +18,6 @@ public class AcessoService {
     @Autowired
     private AcessoRepository acessoRepository;
 
-    /*
-     * public List<Acesso> obterTodosAcessos() {
-     * return acessoRepository.findAll();
-     * }
-     * 
-     * public Optional<Acesso> obterAcessoPorId(Long id) {
-     * Optional<Acesso> acesso = Optional.ofNullable(acessoRepository.findById(id)
-     * .orElseThrow(() -> new
-     * ResourceNotFoundException("Recurso não encontrado.")));
-     * return acesso;
-     * }
-     */
     public List<Acesso> listarAcessos() {
         return acessoRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
     }
