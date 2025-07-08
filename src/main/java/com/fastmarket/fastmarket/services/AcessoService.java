@@ -1,7 +1,6 @@
 package com.fastmarket.fastmarket.services;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -16,42 +15,35 @@ import com.fastmarket.fastmarket.repositories.AcessoRepository;
 public class AcessoService {
 
     @Autowired
-    private AcessoRepository acessoRepository;
+    private AcessoRepository acesso_repository;
 
-    public List<Acesso> listarAcessos() {
-        return acessoRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
+    public List<Acesso> listar_acessos() {
+        return acesso_repository.findAll(Sort.by(Sort.Direction.ASC, "id"));
     }
 
-    public Acesso criarAcesso(Acesso acesso) {
-        return acessoRepository.save(acesso);
+    public Acesso criar_acesso(Acesso acesso) {
+        return acesso_repository.save(acesso);
     }
 
-    public Optional<Acesso> listarAcessoPorId(Long id) {
-        Optional<Acesso> acessoPorId = acessoRepository.findById(id);
-        return acessoPorId;
+    public Acesso listar_acesso_por_id(Long id) {
+        return acesso_repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Acesso com ID " + id + " não encontrado."));
     }
 
-    public String deletarAcesso(Long id) {
-        if (!acessoRepository.existsById(id)) {
+    public String deletar_acesso(Long id) {
+        if (!acesso_repository.existsById(id)) {
             throw new EntityNotFoundException("Acesso com ID " + id + " não encontrado.");
         }
-        acessoRepository.deleteById(id);
+        acesso_repository.deleteById(id);
         return "Acesso com ID " + id + " deletado com sucesso.";
-
     }
 
-
-    /* Ajustar acesso */
-    public Acesso editarAcesso(Acesso acesso, Long id) {
-
-        Acesso acessoAEditar = acessoRepository.findById(id).orElse(null);
-
-        acessoAEditar.setDescricao(acesso.getDescricao());
-
-        acessoRepository.save(acessoAEditar);
-
-        return acessoAEditar;
-
+    public Acesso editar_acesso(Acesso acesso, Long id) {
+        Acesso acesso_a_editar = acesso_repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Acesso com ID " + id + " não encontrado."));
+        acesso_a_editar.setDescricao(acesso.getDescricao());
+        acesso_repository.save(acesso_a_editar);
+        return acesso_a_editar;
     }
 
 }

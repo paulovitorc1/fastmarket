@@ -26,13 +26,10 @@ public class FastmarketApplicationTests extends TestCase {
 
 		acesso.setDescricao("ROLE_ADMIN");
 
-		acesso = acessoController.criarAcesso(acesso).getBody();
+		acessoController.criarAcesso(acesso);
 
-		/*
-		 * assertEquals(true, acesso.getId() > 0);
-		 * assertEquals("ROLE_ADMIN", 0);
-		 */
 	}
+
 
 
 }
