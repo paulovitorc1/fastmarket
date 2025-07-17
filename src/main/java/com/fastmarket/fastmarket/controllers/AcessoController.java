@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fastmarket.fastmarket.model.Acesso;
+import com.fastmarket.fastmarket.dto.AcessoDTO;
 import com.fastmarket.fastmarket.services.AcessoService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -38,10 +38,11 @@ public class AcessoController {
     })
     @ResponseBody
     @PostMapping("")
-    public ResponseEntity<Acesso> criarAcesso(@RequestBody Acesso acesso) {
-        Acesso acessoSalvo = acessoService.criar_acesso(acesso);
-        return new ResponseEntity<Acesso>(acessoSalvo, HttpStatus.OK);
+    public ResponseEntity<AcessoDTO> salvar(@RequestBody AcessoDTO acesso) {
+        AcessoDTO acessoSalvo = acessoService.salvar(acesso);
+        return new ResponseEntity<AcessoDTO>(acessoSalvo, HttpStatus.OK);
     }
+
 
     @Operation(summary = "Listar todos os acessos", description = "Retorna uma lista com todos os acessos cadastrados.")
     @ApiResponses(value = {
@@ -50,8 +51,8 @@ public class AcessoController {
     })
     @ResponseBody
     @GetMapping("")
-    public ResponseEntity<List<Acesso>> listarAcessos() {
-        List<Acesso> listaAcessos = acessoService.listar_acessos();
+    public ResponseEntity<List<AcessoDTO>> listar() {
+        List<AcessoDTO> listaAcessos = acessoService.listar();
         return ResponseEntity.ok(listaAcessos);
     }
 
@@ -63,8 +64,8 @@ public class AcessoController {
     })
     @ResponseBody
     @GetMapping("/{id}")
-    public Acesso listarAcessoPorId(@PathVariable Long id) {
-        return acessoService.listar_acesso_por_id(id);
+    public AcessoDTO listarAcessoPorId(@PathVariable Long id) {
+        return acessoService.listar_por_id(id);
     }
 
     @Operation(summary = "Excluir um acesso por ID", description = "Remove o acesso do sistema com base no ID fornecido.")
@@ -87,8 +88,7 @@ public class AcessoController {
             @ApiResponse(responseCode = "500", description = "Erro interno ao atualizar o acesso.")
     })
     @PutMapping("/{id}")
-    public ResponseEntity<Void> atualizarAcesso(@PathVariable Long id, @RequestBody Acesso acesso) {
-        acessoService.editar_acesso(acesso, id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<AcessoDTO> atualizarAcesso(@PathVariable Long id, @RequestBody AcessoDTO dto) {
+        return ResponseEntity.ok(acessoService.atualizar(id, dto));
     }
 }
