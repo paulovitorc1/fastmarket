@@ -10,4 +10,9 @@ class BeerstockApplicationTests {
     void contextLoads() {
 	}
 
+	@Test
+	void deletarAcessoDeveRetornarStatusCode201NoContent() {
+		
+	}
+
 }

@@ -36,13 +36,13 @@ public class AcessoService {
 
     public AcessoDTO listar_por_id(Long id) {
         Acesso acesso = acesso_repository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Acesso com ID " + id + " não encontrado."));
+                .orElseThrow(() -> new EntityNotFoundException());
         return new AcessoDTO(acesso);
     }
 
     public String deletar_acesso(Long id) {
         if (!acesso_repository.existsById(id)) {
-            throw new EntityNotFoundException("Acesso com ID " + id + " não encontrado.");
+            throw new EntityNotFoundException();
         }
         acesso_repository.deleteById(id);
         return "Acesso com ID " + id + " deletado com sucesso.";
@@ -50,7 +50,7 @@ public class AcessoService {
 
     public AcessoDTO atualizar(Long id, AcessoDTO dto) {
         Acesso acesso = acesso_repository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Acesso com ID " + id + " não encontrado."));
+                .orElseThrow(() -> new EntityNotFoundException());
         acesso.setDescricao(dto.getDescricao());
         Acesso atualizado = acesso_repository.save(acesso);
         return new AcessoDTO(atualizado);
