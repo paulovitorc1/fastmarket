@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>400 — Página não encontrada</title>
+
+    <style>
+        :root {
+            --bg: #0f172a;
+            /* slate-900 */
+            --card: #111827;
+            /* gray-900 */
+            --muted: #94a3b8;
+            /* slate-400 */
+            --text: #e5e7eb;
+            /* gray-200 */
+            --accent: #60a5fa;
+            /* blue-400 */
+            --accent-strong: #3b82f6;
+            /* blue-500 */
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+            background: radial-gradient(1200px 800px at 80% -10%, #1f2937 0%, var(--bg) 40%, var(--bg) 100%);
+            color: var(--text);
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+            line-height: 1.5;
+            display: grid;
+            place-items: center;
+            padding: 24px;
+        }
+
+        .card {
+            width: min(760px, 100%);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+            overflow: hidden;
+        }
+
+        .body {
+            padding: 32px 28px;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 14px;
+            border-radius: 999px;
+            background: rgba(96, 165, 250, 0.15);
+            border: 1px solid rgba(96, 165, 250, 0.35);
+            font-weight: 600;
+            letter-spacing: 0.02em;
+        }
+
+        .badge b {
+            color: var(--accent);
+            font-size: 14px;
+        }
+
+        h1 {
+            font-size: clamp(28px, 4vw, 40px);
+            margin: 16px 0 8px;
+        }
+
+        p.lead {
+            color: var(--muted);
+            font-size: clamp(14px, 2.2vw, 16px);
+            margin: 0 0 16px;
+        }
+
+        .grid {
+            display: grid;
+            gap: 16px;
+            grid-template-columns: 1fr;
+        }
+
+        .row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        @media (max-width: 640px) {
+            .row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .info {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px dashed rgba(255, 255, 255, 0.12);
+            border-radius: 16px;
+            padding: 14px 16px;
+            color: #cbd5e1;
+            font-size: 14px;
+        }
+
+        .info code {
+            color: #eab308;
+        }
+
+        .actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 6px;
+        }
+
+        .btn {
+            appearance: none;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 16px;
+            border-radius: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            color: var(--text);
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            transition: transform .06s ease, background .15s ease, border .15s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .btn.primary {
+            background: linear-gradient(180deg, var(--accent), var(--accent-strong));
+            border: 0;
+            color: white;
+        }
+
+        .btn.primary:hover {
+            filter: brightness(1.04);
+        }
+
+        footer {
+            padding: 16px 24px;
+            font-size: 12px;
+            color: var(--muted);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.25);
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .corner {
+            position: absolute;
+            inset: -80px auto auto -80px;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(closest-side, rgba(96, 165, 250, 0.24), rgba(96, 165, 250, 0.04), transparent);
+            pointer-events: none;
+            filter: blur(12px);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <div class="corner"></div>
+        <div class="body">
+            <span class="badge" aria-label="Código do erro">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M12 9v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <b>Erro 400</b>
+            </span>
+            <h1>Ops! Página não encontrada</h1>
+            <p class="lead">Não conseguimos localizar <code th:text="${path}">/caminho</code>. Ela pode ter sido movida,
+                removida ou o endereço pode estar incorreto.</p>
+
+            <div class="grid">
+                <div class="info">
+                    <div>Detalhes técnicos</div>
+                    <div>Status: <code th:text="${status}">400</code> — <span th:text="${error}">Bad Request</span>
+                    </div>
+                    <div>Mensagem: <code th:text="${message}">Recurso não encontrado</code></div>
+                    <div>Quando: <code th:text="${timestamp}">2025-08-23T09:00:00Z</code></div>
+                </div>
+
+                <div class="actions">
+                    <a class="btn primary" href="/" th:href="@{/}" aria-label="Voltar para a página inicial">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <path
+                                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0h6"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        Início
+                    </a>
+                    <a class="btn" href="javascript:history.back()" aria-label="Voltar para a página anterior">
+                        ◀ Voltar
+                    </a>
+                    <a class="btn" th:href="@{/contato}" href="/contato" aria-label="Falar com o suporte">Suporte</a>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <span>© <span th:text="${#dates.format(#dates.createNow(), 'yyyy')}">2025</span> — FastMarket</span>
+            <a th:href="@{/}" href="/acesso">Ir para a Home</a>
+        </footer>
+    </div>
+</body>
+
+</html>
