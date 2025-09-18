@@ -2,20 +2,25 @@ name: CI
 
 on:
   push:
-    branches: [ "develop", "main", "feature/tests" ]
+    branches: [ "develop", "main", "feature/*" ]
   pull_request:
-    branches: [ "develop", "main", "feature/tests" ]
+    branches: [ "develop", "main", "feature/*" ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    env:
+      DB_HOST: localhost
+      DB_PORT: 5432
+
     services:
       postgres:
         image: postgres:15
         env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: Tartaruga321@
-          POSTGRES_DB: fastmarket
+          POSTGRES_USER: ${{ secrets.DB_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          POSTGRES_DB: ${{ secrets.DB_NAME }}
         ports:
           - 5432:5432
         options: >-
@@ -43,3 +48,8 @@ jobs:
 
     - name: Build and test
       run: mvn clean install
+      env:
+          DB_NAME: ${{ secrets.DB_NAME }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+
