@@ -2,6 +2,9 @@ package com.fastmarket.fastmarket.controllers;
 
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -58,5 +61,26 @@ public class AcessoController implements AcessoControllerDocs {
     @PutMapping("/{id}")
     public ResponseEntity<AcessoDTO> atualizarAcesso(@PathVariable Long id, @RequestBody AcessoDTO dto) {
         return ResponseEntity.ok(acessoService.atualizar(id, dto));
+    }
+
+    @GetMapping("/error")
+    public String handleError(HttpServletRequest request) {
+        Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
+        if (status != null) {
+            int statusCode = Integer.parseInt(status.toString());
+            switch (statusCode) {
+                case 400:
+                    return "400";
+                case 404:
+                    return "404";
+                case 403:
+                    return "403";
+                case 500:
+                    return "500";
+                default:
+                    return "error";
+            }
+        }
+        return "error";
     }
 }
