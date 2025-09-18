@@ -2,13 +2,18 @@ name: CI
 
 on:
   push:
-    branches: [ "develop", "main", "feature/tests" ]
+    branches: [ "develop", "main", "feature/*" ]
   pull_request:
-    branches: [ "develop", "main", "feature/tests" ]
+    branches: [ "develop", "main", "feature/*" ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    env:
+      DB_HOST: localhost
+      DB_PORT: 5432
+
     services:
       postgres:
         image: postgres:15
@@ -43,3 +48,8 @@ jobs:
 
     - name: Build and test
       run: mvn clean install
+      env:
+          DB_NAME: ${{ secrets.DB_NAME }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+
